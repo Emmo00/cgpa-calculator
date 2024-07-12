@@ -1,6 +1,6 @@
 <script setup>
 const props = defineProps(['courseList'])
-console.log(props.courseList)
+const emit = defineEmits(['clearCourses'])
 
 const gradeMapping = {
     '5': 'A',
@@ -23,6 +23,8 @@ const gradeMapping = {
                 <span>{{ course.courseCode }}</span>
                 <span class="font-bold">{{ gradeMapping[course.grade] }}</span>
             </div>
+            <div class="flex justify-end my-2"><button class="text-white bg-black rounded-lg px-3 py-2"
+                    @click="() => { emit('clearCourses') }">Clear</button></div>
         </div>
     </div>
 </template>

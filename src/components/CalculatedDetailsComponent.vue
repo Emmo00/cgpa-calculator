@@ -1,19 +1,29 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 const cgpa = ref(0.00)
 const props = defineProps(['courseList'])
 
 let totalUnits = ref(0)
 let totalGradePoints = ref(0)
-watch(props.courseList, (courses) => {
-    courses.forEach(({ units, grade }) => {
+
+watch(props.courseList, () => {
+    calculateDetails()
+})
+
+onMounted(() => {
+    calculateDetails()
+})
+
+function calculateDetails() {
+    totalUnits.value = 0;
+    totalGradePoints.value = 0;
+    props.courseList.forEach(({ units, grade }) => {
         totalUnits.value += units;
         totalGradePoints.value += units * Number(grade);
+        cgpa.value = (totalGradePoints.value / totalUnits.value).toFixed(2);
     })
-    console.log(courses);
-    cgpa.value = (totalGradePoints.value / totalUnits.value).toFixed(2);
-})
+}
 </script>
 <template>
     <div class=" grid gap-2">
