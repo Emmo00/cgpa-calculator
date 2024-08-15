@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    - npm install
+    - npm build
+    - export DEPLOYPATH=/home/tetmartn/cgpa
+    - /bin/cp public $DEPLOYPATH
